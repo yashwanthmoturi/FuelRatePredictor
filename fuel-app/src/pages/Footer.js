@@ -5,7 +5,7 @@ import Header from './Header';
 const Footer = () => {
     return (
     <div class="footer">
-
+<h2>Developed by : Team Redflags</h2>
         
             
     

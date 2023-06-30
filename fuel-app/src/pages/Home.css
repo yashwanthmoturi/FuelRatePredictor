@@ -1,0 +1,52 @@
+.form-container {
+    position:relative;
+   margin-left: 30%;
+   margin-right: 20%;
+   margin-bottom: 8%;
+    margin-top:0%;
+    background-color: #F2F2F2;
+    padding: 20px;
+    border-radius: 10px;
+   width: fit-content;
+   align-items: center;
+
+}
+  
+  input[type='text'],
+  input[type='password'],
+  input[type='number'],
+  input[type='date'] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    /* width: fit-content; */
+  }
+  
+  button {
+    background-color: rgb(92, 154, 56);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: darkblue;
+  }
+#ip-container{
+    display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+#ip-container input {
+    vertical-align: middle;
+    margin: 5px 30px 5px 0;
+    width:fit-content;
+    padding: 10px;
+    }
+h2{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
