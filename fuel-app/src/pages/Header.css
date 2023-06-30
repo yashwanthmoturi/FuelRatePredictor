@@ -6,7 +6,7 @@
 
 .nav-container {
     position:relative;
-    background-color: rgb(96, 153, 102);
+    background-color: rgb(157, 192, 139);
     height: 12vh;
     margin: 0;
 
@@ -23,7 +23,7 @@
   	display: flex;
   	justify-content: center;
   	align-items: center;
-    background-color: rgb(96, 153, 102);
+
 }
     
 .div1 a{

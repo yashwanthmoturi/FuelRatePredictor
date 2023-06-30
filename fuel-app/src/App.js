@@ -6,6 +6,7 @@ import ForgotPassword from './pages/ForgotPassowrd';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Display from './pages/Display';
+import Footer from './pages/Footer';
  
 function App() {
     return (
