@@ -56,8 +56,8 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Register</h1>
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
+                            <input type="email" minlength="5" maxlength="50" placeholder="Email" />
+                            <input type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <button onclick="#">Signup</button>
                           </form>
                         </div>
@@ -75,8 +75,8 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Login</h1>
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
+                            <input type="email" minlength="5" maxlength="50" placeholder="Email" />
+                            <input type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <a onClick={()=>{setIsForget(true)}} href="/#">Forgot your password?</a>
                             <button onClick={handleLogin}>Login</button>
                           </form>
@@ -94,7 +94,7 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Forgot Password</h1>
-                            <input type="email" placeholder="Email" />
+                            <input type="email" minlength="5" maxlength="50" placeholder="Email" />
                             <br></br>
                             <button onClick={handleLogin}>Get Code</button>
                             <a onClick={()=>{setIsForget(false)}} href="/#">Back to Login</a>
