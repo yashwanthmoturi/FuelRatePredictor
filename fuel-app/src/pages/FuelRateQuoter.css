@@ -1,7 +1,7 @@
 .form-container {
     position:relative;
-   margin-left: 30%;
-   margin-right: 20%;
+    justify-content: center;
+  
    margin-bottom: 8%;
     margin-top:0%;
     background-color: #F2F2F2;
@@ -39,6 +39,8 @@
     display: flex;
   flex-flow: row wrap;
   align-items: center;
+  min-inline-size: 10%;
+  justify-content: center;
 }
 #ip-container input {
     vertical-align: middle;
@@ -49,4 +51,13 @@
 h2{
     margin-top: 40px;
     margin-bottom: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+#page-center{
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+ margin-left: 30%;
+ margin-right: 30%;
 }
