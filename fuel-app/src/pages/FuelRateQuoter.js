@@ -21,7 +21,7 @@ const FuelRateQuoter = () => {
 
     return (
         <div>
-            <Header />
+            <Header isLoggedIn={true}/>
             <br />
             <div id="page-center">
             <center><h2>Fuel Quote Estimator</h2></center>
@@ -30,7 +30,7 @@ const FuelRateQuoter = () => {
                     <div>
 
                         Delivery Address :
-                        <input type="text" value="8181 Fannin st" id="add-inp" disabled />
+                        <input className="f-input" type="text" value="8181 Fannin st" id="add-inp" disabled />
 
                     </div>
                     <br />
@@ -38,26 +38,26 @@ const FuelRateQuoter = () => {
 
                         <div>
                             Gallons Requested: &nbsp;
-                            <input type="number" step="any" id="gallons_inp_fld" value={username} onChange={handleUsernameChange} />
+                            <input className="f-input" type="number" step="any" id="gallons_inp_fld" value={username} onChange={handleUsernameChange} />
                         </div>
-                        <div>
+                        <div className='delivery-date'>
                             Delivery Date: &nbsp;
                         
-                        <input type="date" />
+                        <input className="f-input" type="date" />
                     </div>
                     </div>
                     <br />
                     <div>
                         Suggested Price:
-                        <input type="number" placeholder="$ 0.00" disabled />
+                        <input className="f-input" type="number" placeholder="$ 0.00" disabled />
                     </div>
                     <br />
                     <div>
                         Total Amount Due:
-                        <input type="number" placeholder="$ 0.00" disabled />
+                        <input className="f-input" type="number" placeholder="$ 0.00" disabled />
                     </div>
                     <br />
-                    <button type="submit">Get Quote</button>
+                    <button className="f-button" type="submit">Get Quote</button>
                 </form>
             </div>
             </div>

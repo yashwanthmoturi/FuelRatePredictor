@@ -7,7 +7,7 @@ const Header = (param) => {
     <div class="nav-container">
         
         <div class="div1">
-          <a href='home'><strong>FRP</strong></a>
+          <a class="a-font" href='home'><strong>FRP</strong></a>
         </div>
       
         <div class="div2">

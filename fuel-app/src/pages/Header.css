@@ -31,7 +31,7 @@
     text-decoration:none;
     letter-spacing: 2px;
     color: white;
-    font-size: 1.8em;
+    /* font-size: 1.8em; */
     /* background-color: pink; */
     padding: 17px;
     border-radius: 15px;
@@ -67,7 +67,7 @@
     /* border: 1px solid red; */
     margin: 5px;
     border-radius: 10px;
-    font-size: 1.1em;
+    /* font-size: 1.1em; */
 }
 
 .div2 a{
@@ -78,6 +78,9 @@
 }
 
 
+/* .hover1 {
+    font-size: 1.1em;
+} */
 
 .hover1:hover a{
     color:  rgb(96, 153, 102);
@@ -121,3 +124,6 @@
     display: block;
 }
     
+.a-font {
+    font-size: 1.8rem;
+}
