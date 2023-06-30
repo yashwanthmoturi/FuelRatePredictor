@@ -1,4 +1,4 @@
-.container{
+.Home-container{
     border: 1px solid white;
     position: relative;
     height:78vh;
@@ -18,31 +18,30 @@
 
 }
 
-.heading{
-    margin-top: 4.9em;
-
+.Home-heading{
+    margin-top: 90px;
+    text-align: center;
 }
 
-.center {
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    top:60%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
+.Home-center {
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
 
 #b1{
-    border-color: #eb9c5c;
+    border: 1px solid white;
     background-color: white;
     color: #eb9c5c;
+    border-radius: 4px;
+    margin-left: 205px;
+    padding: 25px;
+    margin-top: 25px;
+    font-size: 1.2em;
 }
 
-#b2{
-    border: 1px solid white;
-    background-color: #483c32;
-    color: white;
-}
+
 
 .center button{
     font-size: 1.2em;
@@ -58,4 +57,15 @@
     right: 8%;
     border-radius: 10px;
     background-color: #483c32;
+}
+
+#b2{
+    border: 1px solid white;
+    background-color: #483c32;
+    color: white;
+    border-radius: 4px;
+    margin-left: 205px;
+    padding: 25px;
+    margin-top: 25px;
+    font-size: 1.2em;
 }

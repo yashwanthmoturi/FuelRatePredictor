@@ -10,7 +10,7 @@ const Header = (param) => {
           <a class="a-font" href='home'><strong>FRP</strong></a>
         </div>
       
-        <div class="div2">
+        <div className="div2">
             <ul>
                 <li class="hover1"><a href='home' >Home</a></li>
                 <li id='dropdown' >
