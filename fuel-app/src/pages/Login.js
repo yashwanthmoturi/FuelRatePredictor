@@ -6,18 +6,19 @@ import Footer from './Footer';
 
 const Login = () => {
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
+  // const handleUsernameChange = (e) => {
+  //   setUsername(e.target.value);
+  // };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  // const handlePasswordChange = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
   const [isSignUp, signUpIsClicked] = useState(false);
+  const [isForget, setIsForget] = useState(false);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -37,12 +38,19 @@ const Login = () => {
     signUpIsClicked(false);
   }
 
+  function handleLogin(e){
+        e.preventDefault();
+        navigate('/client-profile')
+
+      console.log("hello");
+  }
+
 
   return(
     <div >
       <Header />
       {
-        (isSignUp)? 
+        (isSignUp)? (
                     <div class="signup-container">
                       <div class="container">
                         <div class="login">
@@ -60,7 +68,8 @@ const Login = () => {
                         </div>
                       </div>
                     </div>
-        :
+        )
+        :((!isForget)?
                     <div class="login-container">
                       <div class="container">
                         <div class="login">
@@ -68,8 +77,8 @@ const Login = () => {
                             <h1>Login</h1>
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" />
-                            <a href="#">Forgot your password?</a>
-                            <button onclick="#">Login</button>
+                            <a onClick={()=>{setIsForget(true)}} href="/#">Forgot your password?</a>
+                            <button onClick={handleLogin}>Login</button>
                           </form>
                         </div>
                         <div class="signup">
@@ -79,6 +88,26 @@ const Login = () => {
                         </div>
                       </div>
                     </div>
+                    :
+                    <div class="login-container">
+                      <div class="container">
+                        <div class="login">
+                          <form action="#">
+                            <h1>Forgot Password</h1>
+                            <input type="email" placeholder="Email" />
+                            <br></br>
+                            <button onClick={handleLogin}>Get Code</button>
+                            <a onClick={()=>{setIsForget(false)}} href="/#">Back to Login</a>
+                          </form>
+                        </div>
+                        <div class="signup">
+                              <h1>NEW USER!</h1>
+                              <p>Use your personal details to create a new profile</p>
+                              <button id="signUp" onClick={handleSignUp}>Sign Up</button>
+                        </div>
+                      </div>
+                    </div>
+        )
       }
       <Footer />
     </div>
