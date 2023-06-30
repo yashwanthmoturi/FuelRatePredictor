@@ -24,7 +24,7 @@ const FuelRateQuoter = () => {
             <Header isLoggedIn={true}/>
             <br />
             <div id="page-center">
-            <center><h2>Fuel Quote Estimator</h2></center>
+            <center><h2 className='f-h2'>Fuel Quote Estimator</h2></center>
             <div className="form-container">
                 <form onSubmit={handleSubmit}>
                     <div>

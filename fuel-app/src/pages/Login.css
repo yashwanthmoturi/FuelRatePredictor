@@ -87,22 +87,20 @@ a {
 .l-button:hover{
 	color: rgb(92, 154, 56);
 	background-color: #ffffff;
+	cursor: pointer;
 }
 
 .l-text {
 	color: rgb(0, 157, 209);
 }
 
-button:hover{
-  cursor: pointer;
-}
 
-h1 {
+.l-h1 {
 	font-weight: bold;
 	margin: 0;
 }
 
-p {
+.l-p {
 	font-size: 14px;
 	font-weight: 100;
 	line-height: 20px;

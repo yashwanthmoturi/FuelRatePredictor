@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassowrd';
 import FuelRateQuoter from './pages/FuelRateQuoter';
 import Display from './pages/Display';
 import Home from './pages/Home';
@@ -13,7 +12,6 @@ function App() {
     return (
             <Routes>
                 <Route exact path='/' element={<Login />} />
-                <Route path='/forgot' element={<ForgotPassword />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/client-profile' element={<ClientProfile />} />
                 <Route path='/fuel-rate-quoter' element={<FuelRateQuoter />} />
