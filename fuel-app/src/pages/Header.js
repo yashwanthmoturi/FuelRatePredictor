@@ -16,7 +16,7 @@ const Header = (param) => {
                 <li id='dropdown' >
                     <div>Services</div>
                     <div className='dropdown-content'>
-                        <a href='home'>Fuel Rate</a>
+                        <a href='fuel-rate-quoter'>Fuel Rate</a>
                         <a href='display'>Fuel History</a>
                     </div>
                 </li>

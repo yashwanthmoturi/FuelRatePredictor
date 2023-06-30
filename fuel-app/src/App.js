@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route }
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassowrd';
 import Signup from './pages/Signup';
-import Home from './pages/Home';
+import FuelRateQuoter from './pages/FuelRateQuoter';
 import Display from './pages/Display';
  
 function App() {
@@ -14,7 +14,7 @@ function App() {
                 <Route exact path='/' element={<Login />} />
                 <Route path='/forgot' element={<ForgotPassword />} />
                 <Route path='/signup' element={<Signup />} />
-                <Route path='/home' element={<Home />} />
+                <Route path='/fuel-rate-quoter' element={<FuelRateQuoter />} />
                 <Route path='/display' element={<Display />} />
             </Routes>
     );
