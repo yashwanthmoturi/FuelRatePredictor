@@ -38,7 +38,7 @@ const FuelRateQuoter = () => {
 
                         <div>
                             Gallons Requested: &nbsp;
-                            <input className="f-input" type="number" step="any" id="gallons_inp_fld" value={username} onChange={handleUsernameChange} />
+                            <input className="f-input" type="numeric" step="any" minlength="1" maxlength="10" required id="gallons_inp_fld" value={username} onChange={handleUsernameChange} />
                         </div>
                         <div className='delivery-date'>
                             Delivery Date: &nbsp;

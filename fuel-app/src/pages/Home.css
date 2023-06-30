@@ -1,0 +1,61 @@
+.container{
+    border: 1px solid white;
+    position: relative;
+    height:78vh;
+    width: auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+.fuel-rate{
+    position: relative;
+    border: 1px solid white;
+    height: 55%;
+    width: 35%;
+    top: 10%;
+    left: 8%;
+    border-radius: 10px;
+    background-color: #eb9c5c;
+
+}
+
+.heading{
+    margin-top: 4.9em;
+
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top:60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+#b1{
+    border-color: #eb9c5c;
+    background-color: white;
+    color: #eb9c5c;
+}
+
+#b2{
+    border: 1px solid white;
+    background-color: #483c32;
+    color: white;
+}
+
+.center button{
+    font-size: 1.2em;
+    padding: 1.1em;
+}
+
+.fuel-history{
+    position: absolute;
+    border: 1px solid white;
+    height: 55%;
+    width: 35%;
+    bottom: 10%;
+    right: 8%;
+    border-radius: 10px;
+    background-color: #483c32;
+}

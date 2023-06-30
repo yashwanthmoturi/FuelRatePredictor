@@ -56,9 +56,8 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Register</h1>
-                            <input className="l-input" type="email" placeholder="Email" />
-                            <input className="l-input" type="password" placeholder="Password" />
-                            <br></br>
+                            <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
+                            <input className="l-input" type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <button className="l-button" onclick="#">Signup</button>
                           </form>
                         </div>
@@ -76,8 +75,8 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Login</h1>
-                            <input className="l-input" type="email" placeholder="Email" />
-                            <input className="l-input" type="password" placeholder="Password" />
+                            <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
+                            <input className="l-input" type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <a className="l-text" onClick={()=>{setIsForget(true)}} href="/#">Forgot your password?</a>
                             <button className="l-button" onClick={handleLogin}>Login</button>
                           </form>
@@ -95,7 +94,7 @@ const Login = () => {
                         <div class="login">
                           <form action="#">
                             <h1>Forgot Password</h1>
-                            <input className="l-input" type="email" placeholder="Email" />
+                            <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
                             <br></br>
                             <button className="l-button" onClick={handleLogin}>Get Code</button>
                             <a className="l-text" onClick={()=>{setIsForget(false)}} href="/#">Back to Login</a>
