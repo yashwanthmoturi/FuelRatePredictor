@@ -5,7 +5,7 @@ import Footer from './Footer';
 const Display = () => {
     return (
         <div>
-            <Header />
+            <Header isLoggedIn={true}/>
             
         <div class="fuelhistory-container">
         <h1>FUEL Quote History</h1>
