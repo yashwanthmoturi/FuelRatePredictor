@@ -55,8 +55,8 @@ form{
 	height: 100%;
 }
 
-input {
-	background-color: #eee;
+.l-input {
+	background-color: white;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
@@ -71,10 +71,10 @@ a {
 	margin: 15px 0;
 }
 
-button {
+.l-button {
 	border-radius: 20px;
-	border: 1px solid #ff4b2b;
-	background-color: #ff4b2b;
+	border: 1px solid rgb(92, 154, 56);
+	background-color: rgb(92, 154, 56);
 	color: #ffffff;
 	font-size: 12px;
 	font-weight: bold;
@@ -82,6 +82,15 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+.l-button:hover{
+	color: rgb(92, 154, 56);
+	background-color: #ffffff;
+}
+
+.l-text {
+	color: rgb(0, 157, 209);
 }
 
 button:hover{
@@ -99,10 +108,4 @@ p {
 	line-height: 20px;
 	letter-spacing: 0.5px;
 	margin: 20px 0 30px;
-}
-
-
-input{
-	background-color: white;
-	border: grey 1px solid;
 }
