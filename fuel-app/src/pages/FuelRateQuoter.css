@@ -34,10 +34,7 @@
     text-transform: uppercase;
     transition: transform 80ms ease-in;
   }
-  
-  button:hover {
-    background-color: darkblue;
-  }
+
 #ip-container{
     display: flex;
   flex-flow: row wrap;
@@ -67,4 +64,10 @@
 
 .delivery-date{
   margin: 8px;
+}
+
+.f-button:hover{
+  color: rgb(92, 154, 56);
+  background-color: #ffffff;
+  cursor: pointer;
 }

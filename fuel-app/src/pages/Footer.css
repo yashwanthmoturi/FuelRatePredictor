@@ -1,8 +1,24 @@
 .footer{
-    min-height: 7.5rem;
+    height: 12vh;
     width: 100%;
     background-color: rgb(77, 96, 71);
     color: rgb(18, 18, 18);
-    text-align: center;
-    
+    position: relative;
 }
+
+.Footer-container{
+    width: 100%;
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: 26%;
+    justify-content: space-evenly;
+}
+
+.Footer-container p{
+    display: inline-block;
+    margin: 10px;
+}
+
