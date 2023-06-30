@@ -37,6 +37,13 @@ const Login = () => {
     signUpIsClicked(false);
   }
 
+  function handleLogin(e){
+        e.preventDefault();
+        navigate('/client-profile')
+
+      console.log("hello");
+  }
+
 
   return(
     <div >
@@ -69,7 +76,7 @@ const Login = () => {
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" />
                             <a href="#">Forgot your password?</a>
-                            <button onclick="#">Login</button>
+                            <button onClick={handleLogin}>Login</button>
                           </form>
                         </div>
                         <div class="signup">
