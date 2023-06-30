@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Routes, Route }
+// eslint-disable-next-line
+import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassowrd';
