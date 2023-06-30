@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './Home.css';
+import './FuelRateQuoter.css';
 import { useNavigate } from "react-router-dom"
 import Header from './Header';
 import Footer from './Footer';
 
-const Home = () => {
+const FuelRateQuoter = () => {
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
     };
@@ -63,4 +63,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default FuelRateQuoter;
