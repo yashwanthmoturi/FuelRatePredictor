@@ -23,6 +23,7 @@ const FuelRateQuoter = () => {
         <div>
             <Header />
             <br />
+            <div id="page-center">
             <center><h2>Fuel Quote Estimator</h2></center>
             <div className="form-container">
                 <form onSubmit={handleSubmit}>
@@ -41,8 +42,9 @@ const FuelRateQuoter = () => {
                         </div>
                         <div>
                             Delivery Date: &nbsp;
-                        </div>
+                        
                         <input type="date" />
+                    </div>
                     </div>
                     <br />
                     <div>
@@ -57,6 +59,7 @@ const FuelRateQuoter = () => {
                     <br />
                     <button type="submit">Get Quote</button>
                 </form>
+            </div>
             </div>
             <Footer />
         </div>
