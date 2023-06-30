@@ -1,5 +1,14 @@
-.login-signup-container{
+.login-container{
 	background-color: rgb(83, 185, 43);
+	width: 100%;
+  height:76vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container{
+  background-color: rgb(83, 185, 43);
 	width: 100%;
   height:76vh;
   display: flex;
