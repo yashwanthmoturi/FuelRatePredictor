@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css';
 import {useNavigate} from "react-router-dom"
-
+import Header from './Header';
+import Footer from './Footer';
 
 const Login = () => {
 
@@ -26,25 +27,35 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
-        <div>
-          Username:
-          <input type="text" value={username} onChange={handleUsernameChange} />
+    <div >
+    
+      <Header />
+
+      <div class="login-signup-container">
+
+
+        <div class="container">
+          <div class="login">
+            <form action="#">
+              <h1>Login</h1>
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <a href="#">Forgot your password?</a>
+              <button onclick="">Login</button>
+            </form>
+          </div>
+
+          <div class="signup">
+                <h1>NEW USER!</h1>
+                <p>Use your personal details to create a new profile</p>
+                <button id="signUp">Sign Up</button>
+          </div>
         </div>
-        <br />
-        <div>
-          Password:
-          <input type="password" value={password} onChange={handlePasswordChange} />
-        </div>
-        <br />
-        <div>
-          
-          <a href="forgot">Forgot Password</a>
-        </div>
-        <br />
-        <button type="submit">Login</button>
-      </form>
+
+      </div>
+
+      <Footer />
+    
     </div>
   );
 };
