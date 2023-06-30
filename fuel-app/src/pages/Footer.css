@@ -1,4 +1,10 @@
 .footer{
-    background-color: rgb(64, 81, 59);
-    height: 12vh;
+    min-height: 7.5rem;
+    margin-bottom: 0px;
+    width: 100%;
+    background-color: rgb(43, 171, 92);
+    color: rgb(18, 18, 18);
+    text-align: center;
+    padding: 10px;
+    
 }
