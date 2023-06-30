@@ -1,10 +1,11 @@
 import React from 'react';
 import './Header.css';
 
-const Header = () => {
+const Header = (param) => {
+    const isLoggedIn = param.isLoggedIn;
     return (
     <div class="nav-container">
-      
+        
         <div class="div1">
           <a href='home'><strong>FRP</strong></a>
         </div>
@@ -20,6 +21,8 @@ const Header = () => {
                     </div>
                 </li>
                 <li  class="hover1"><a href='mailto:fuelratepredictor@gmail.com'>contact</a></li>
+                {isLoggedIn&& 
+                <li  class="hover1"><a href='/'>Log out</a></li>}
             </ul>
         </div>
       
