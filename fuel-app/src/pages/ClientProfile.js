@@ -10,7 +10,7 @@ const ClientProfile = () => {
       <Header isLoggedIn={true}/>
         <div className='profile-container'>
             <div className='profile'>
-                <h2>Complete your profile</h2>
+                <h2 className='c-h2'>Complete your profile</h2>
                 <form className='form'>
                     <div className='username'>
                         <input type='text' placeholder='FirstName' minlength="1" maxlength="50" required/>

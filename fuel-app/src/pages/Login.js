@@ -55,15 +55,15 @@ const Login = () => {
                       <div class="container">
                         <div class="login">
                           <form action="#">
-                            <h1>Register</h1>
+                            <h1 className='l-h1'>Register</h1>
                             <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
                             <input className="l-input" type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <button className="l-button" onclick="#">Signup</button>
                           </form>
                         </div>
                         <div class="signup">
-                              <h1>Already a USER!</h1>
-                              <p>Login here</p>
+                              <h1 className='l-h1'>Already a USER!</h1>
+                              <p className='l-p'>Login here</p>
                               <button className="l-button" onClick={tempLogin}>Login</button>
                         </div>
                       </div>
@@ -74,7 +74,7 @@ const Login = () => {
                       <div class="container">
                         <div class="login">
                           <form action="#">
-                            <h1>Login</h1>
+                            <h1 className='l-h1'>Login</h1>
                             <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
                             <input className="l-input" type="password" minlength="5" maxlength="20" placeholder="Password" />
                             <a className="l-text" onClick={()=>{setIsForget(true)}} href="/#">Forgot your password?</a>
@@ -82,8 +82,8 @@ const Login = () => {
                           </form>
                         </div>
                         <div class="signup">
-                              <h1>NEW USER!</h1>
-                              <p>Use your personal details to create a new profile</p>
+                              <h1 className='l-h1'>NEW USER!</h1>
+                              <p className='l-p'>Use your personal details to create a new profile</p>
                               <button className="l-button" onClick={handleSignUp}>Sign Up</button>
                         </div>
                       </div>
@@ -93,7 +93,7 @@ const Login = () => {
                       <div class="container">
                         <div class="login">
                           <form action="#">
-                            <h1>Forgot Password</h1>
+                            <h1 className='l-h1'>Forgot Password</h1>
                             <input className="l-input" type="email" minlength="5" maxlength="50" placeholder="Email" />
                             <br></br>
                             <button className="l-button" onClick={handleLogin}>Get Code</button>
@@ -101,8 +101,8 @@ const Login = () => {
                           </form>
                         </div>
                         <div class="signup">
-                              <h1>NEW USER!</h1>
-                              <p>Use your personal details to create a new profile</p>
+                              <h1 className='l-h1'>NEW USER!</h1>
+                              <p className='l-p'>Use your personal details to create a new profile</p>
                               <button className="l-button" onClick={handleSignUp}>Sign Up</button>
                         </div>
                       </div>
