@@ -1,0 +1,92 @@
+.profile-container{
+    /* border: 1px solid red; */
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.profile{
+    width: 40%;
+    height: 85%;
+    border-radius: 16px;
+    position: relative;
+    min-width: 500px;
+    background-color: rgb(165, 215, 184);
+}
+
+
+
+
+
+h2{
+    text-align: center;
+    /* background-color: pink; */
+    margin-top: 65px;
+}
+
+.username{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    /* border: 1px solid red; */
+    width: 100%;
+    top: 21%;
+    border-radius: 10px;
+}
+
+.username input{
+    width: 47%;
+    margin: 8px;
+    background-color: white;
+}
+
+.address{
+    position: absolute;
+    /* border: 1px solid red; */
+    width: 95%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    top: 30%;
+    border-radius: 10px;
+}
+
+.address input{
+    width: 75%;
+    background-color: white;
+}
+
+.location {
+    position: absolute;
+    /* border: 1px solid red; */
+    width: 97%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10px;
+    top: 50%;
+}
+
+.location input{
+    width: 31%;
+    margin: 2px;
+    background-color: white;
+}
+
+#submit{
+    color: white;
+    background-color: rgb(4, 171, 101);
+    cursor: pointer;
+    width: 50%;
+}
+
+#submit:hover {
+    background-color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: rgb(4, 171, 101);
+}
