@@ -55,6 +55,15 @@ form{
 	height: 100%;
 }
 
+.form{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+}
+
 .l-input {
 	background-color: white;
 	border: none;

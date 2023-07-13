@@ -7,7 +7,7 @@ const Home = () => {
     return (
     <div>
 
-        <Header />
+        <Header isLoggedIn={true}/>
         <div className='Home-container'>
 
             <div className='fuel-rate'>

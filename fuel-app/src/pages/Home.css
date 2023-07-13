@@ -41,11 +41,20 @@
     font-size: 1.2em;
 }
 
-
+#b1:hover{
+    border: 1px solid white;
+    background-color: #eb9c5c;
+    color: white;
+    cursor: pointer;
+}
 
 .center button{
     font-size: 1.2em;
     padding: 1.1em;
+}
+
+.center button:hover{
+    cursor: pointer;
 }
 
 .fuel-history{
@@ -68,4 +77,10 @@
     padding: 25px;
     margin-top: 25px;
     font-size: 1.2em;
+}
+#b2:hover{
+    border: 1px solid #483c32;
+    background-color: white;
+    color: #483c32;
+    cursor: pointer;
 }

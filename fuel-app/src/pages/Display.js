@@ -7,7 +7,7 @@ const Display = () => {
         <div>
             <Header isLoggedIn={true}/>
             
-        <div class="fuelhistory-container">
+        <div className="fuelhistory-container">
         <h1>FUEL Quote History</h1>
 
               <table id="fuelhistory">
