@@ -112,4 +112,82 @@ describe('API Endpoints', () => {
       expect(response.body).to.deep.equal({ message: 'success' });
     });
   });
+
+  // Test for /clientProfile endpoint
+  describe('POST /clientProfile', () => {
+    it('should return 200 and message "Client Profile Completed" if client profile is inserted successfully', async () => {
+      const response = await request(app)
+        .post('/clientProfile')
+        .send({
+          email: 'user@example.com',
+          firstname: 'John',
+          lastname: 'Doe',
+          address1: '123 Street',
+          address2: 'Apt 4B',
+          city: 'New York',
+          state: 'NY',
+          zipcode: '12345'
+        });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({ message: 'Client Profile Completed' });
+    });
+  });
+
+  // Test for /getUserDetails endpoint
+  describe('GET /getUserDetails', () => {
+    it('should return 200 and user details if email is valid', async () => {
+      const response = await request(app)
+        .get('/getUserDetails')
+        .query({ email: 'user@example.com' });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({
+        address1: '123 Street',
+        address2: 'Apt 4B',
+        state: 'NY',
+        city: 'New York',
+        zipcode: '12345'
+      });
+    });
+  });
+
+  // Test for /submitQuote endpoint
+  describe('POST /submitQuote', () => {
+    it('should return 200 and message "Fuel Quote Submitted" if quote is submitted successfully', async () => {
+      const response = await request(app)
+        .post('/submitQuote')
+        .send({
+          email: 'user@example.com',
+          gallons_requested: 100,
+          delivery_date: '2023-07-15',
+          delivery_address: '123 Street',
+          suggested_price_per_gallon: 3.5,
+          total_amount_due: 350
+        });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({ message: 'Fuel Quote Submitted' });
+    });
+  });
+
+  // Test for /getFuelHistory endpoint
+  describe('GET /getFuelHistory', () => {
+    it('should return 200 and fuel quote history for the user', async () => {
+      const response = await request(app)
+        .get('/getFuelHistory')
+        .query({ email: 'user@example.com' });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal([
+        {
+          gallons_requested: 100,
+          delivery_date: '2023-07-15',
+          delivery_address: '123 Street',
+          suggested_price_per_gallon: 3.5,
+          total_amount_due: 350
+        }
+      ]);
+    });
+  });
 });
