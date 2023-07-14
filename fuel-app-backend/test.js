@@ -79,4 +79,37 @@ describe('API Endpoints', () => {
       expect(response.body).to.deep.equal({ message: 'user have not registered' });
     });
   });
+
+  // Test for /verify endpoint
+  describe('POST /verify', () => {
+    it('should return 200 and message "code verified" if valid email and code are provided', async () => {
+      const response = await request(app)
+        .post('/verify')
+        .send({ email: 'verified@example.com', code: '12345' });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({ message: 'code verified' });
+    });
+
+    it('should return 409 with message "Invalid code" if invalid code is provided', async () => {
+      const response = await request(app)
+        .post('/verify')
+        .send({ email: 'verified@example.com', code: '54321' });
+
+      expect(response.status).to.equal(409);
+      expect(response.body).to.deep.equal({ message: 'Invalid code' });
+    });
+  });
+
+  // Test for /updatePassword endpoint
+  describe('POST /updatePassword', () => {
+    it('should return 200 and message "success" if password is updated successfully', async () => {
+      const response = await request(app)
+        .post('/updatePassword')
+        .send({ email: 'user@example.com', password: 'newpassword' });
+
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal({ message: 'success' });
+    });
+  });
 });
