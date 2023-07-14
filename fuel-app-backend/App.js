@@ -181,6 +181,33 @@ app.get('/getUserDetails', (req, res) => {
     })
 })
 
+app.post('/submitQuote', (req, res) => {
+    const {email, gallons_requested, delivery_date, delivery_address, suggested_price_per_gallon, total_amount_due} = req.body;
+    pool.query('Insert into fuel_quote_history values($1,$2,$3,$4,$5,$6)', [gallons_requested, delivery_address, delivery_date, suggested_price_per_gallon, total_amount_due, email], (error, results) => {
+        if(error) {
+            res.status(401).send(error);
+        }
+        // console.log(results);
+        else {
+            res.send({message:"Fuel Quote Submitted"});
+        }
+    })
+
+    
+})
+
+app.get('/getFuelHistory', (req, res) => {
+    const {email} = req.query;
+    pool.query('Select gallons_requested, delivery_date, delivery_address, suggested_price_per_gallon, total_amount_due from fuel_quote_history where email=$1',[email], (error, results) => {
+        if(error) {
+            res.status(401).send(error);
+        }
+        else {
+            res.send(results?.rows);
+        }
+    })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
