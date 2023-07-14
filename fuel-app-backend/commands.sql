@@ -55,3 +55,22 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.verification_table
     OWNER to postgres;
+
+-- Table: public.fuel_quote_history
+
+-- DROP TABLE IF EXISTS public.fuel_quote_history;
+
+CREATE TABLE IF NOT EXISTS public.fuel_quote_history
+(
+    gallons_requested double precision NOT NULL,
+    delivery_address character varying COLLATE pg_catalog."default" NOT NULL,
+    delivery_date date NOT NULL,
+    suggested_price_per_gallon double precision NOT NULL,
+    total_amount_due double precision NOT NULL,
+    email character varying COLLATE pg_catalog."default" NOT NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.fuel_quote_history
+    OWNER to postgres;
