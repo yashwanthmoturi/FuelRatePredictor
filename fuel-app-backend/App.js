@@ -49,7 +49,17 @@ app.post('/login', async (req, res) => {
             res.status(401).send(error);
         }
         if(results?.rows[0].count === "1") {
-            res.status(200).send({status:"ok"});
+            pool.query('Select count(*) from user_table where email=$1', [email], (error, results) => {
+                if(error) {
+                    res.status(401).send(error);
+                }
+                else if(results?.rows[0].count === "1") {
+                    res.status(200).send({status:"ok"});
+                }
+                else {
+                    res.status(200).send({status:"ok",message:"ClientProfilePending"});
+                }
+            })
         }
         else {
             res.status(401).send({error:"Invalid Credentials"})
@@ -145,7 +155,35 @@ app.post('/updatePassword', (req, res) => {
     })
 })
 
+app.post('/clientProfile', (req, res) => {
+    const {email, firstname, lastname, address1, address2, city, state, zipcode} = req.body;
+    pool.query('Insert into user_table values($1,$2,$3,$4,$5,$6,$7,$8)', [firstname, lastname, address1, address2, city, state, zipcode, email], (error, results) => {
+        if(error) {
+            res.status(401).send(error);
+        }
+        // console.log(results);
+        else {
+            res.send({message:"Client Profile Completed"});
+
+        }
+    })
+})
+
+app.get('/getUserDetails', (req, res) => {
+    const {email} = req.query;
+    pool.query('Select address1, address2, state, city, zipcode from user_table where email=$1',[email], (error, results) => {
+        if(error) {
+            res.status(401).send(error);
+        }
+        else {
+            res.send(results?.rows[0]);
+        }
+    })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
+
+module.exports = app;
