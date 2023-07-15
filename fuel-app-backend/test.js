@@ -185,7 +185,7 @@ describe('API Endpoints', () => {
       expect(response.body).to.deep.equal([
         {
           gallons_requested: 100,
-          delivery_date: '2023-07-15',
+          delivery_date: '2023-07-15T05:00:00.000Z',
           delivery_address: '123 Street',
           suggested_price_per_gallon: 3.5,
           total_amount_due: 350

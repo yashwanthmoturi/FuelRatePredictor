@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS public.user_table
     state character varying COLLATE pg_catalog."default" NOT NULL,
     zipcode numeric NOT NULL,
     email character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT user_table_pkey PRIMARY KEY (email),
     CONSTRAINT user_table_email_fkey FOREIGN KEY (email)
         REFERENCES public.register_table (email) MATCH SIMPLE
         ON UPDATE NO ACTION
