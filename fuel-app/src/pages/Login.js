@@ -73,7 +73,13 @@ const Login = () => {
           email: email,
           password: password 
         }, {mode:'cors'}).then((response)=>{
+          sessionStorage.setItem("email", email);
+          if(response.data['message'] === "ClientProfilePending") {
             navigate('/client-profile')
+          }
+          else {
+            navigate('/fuel-rate-quoter')
+          }
             console.log(response.data);
           
         }).catch(error => {
