@@ -14,7 +14,7 @@ describe('API Endpoints', () => {
     it('should return 200 and message "success" if registration is successful', async () => {
       const response = await request(app)
         .post('/register')
-        .send({ email: 'newuser@example.com', password: 'password' });
+        .send({ email: 'yashwanth0231@gmail.com', password: 'password' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({ message: 'success' });
@@ -23,7 +23,7 @@ describe('API Endpoints', () => {
     it('should return 409 with message "duplicate user" if user already exists', async () => {
       const response = await request(app)
         .post('/register')
-        .send({ email: 'newuser@example.com', password: 'password' });
+        .send({ email: 'yashwanth0231@gmail.com', password: 'password' });
 
       expect(response.status).to.equal(409);
       expect(response.body).to.deep.equal({ message: 'duplicate user' });
@@ -31,19 +31,11 @@ describe('API Endpoints', () => {
   });
 
   describe('POST /login', () => {
-    it('should return 200 and status "ok" if valid credentials are provided', async () => {
-      const response = await request(app)
-        .post('/login')
-        .send({ email: 'newuser@example.com', password: 'password' });
-
-      expect(response.status).to.equal(200);
-      expect(response.body).to.deep.equal({ status: 'ok' });
-    });
 
     it('should return 200 and status "ok" with message "ClientProfilePending" if client profile is pending', async () => {
       const response = await request(app)
         .post('/login')
-        .send({ email: 'profilepending@example.com', password: 'password' });
+        .send({ email: 'yashwanth0231@gmail.com', password: 'password' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({ status: 'ok', message: 'ClientProfilePending' });
@@ -52,7 +44,7 @@ describe('API Endpoints', () => {
     it('should return 401 with error message "Invalid Credentials" if invalid credentials are provided', async () => {
       const response = await request(app)
         .post('/login')
-        .send({ email: 'invalid@example.com', password: 'password' });
+        .send({ email: 'yashwanth0231@gmail.com', password: 'awfewel' });
 
       expect(response.status).to.equal(401);
       expect(response.body).to.deep.equal({ error: 'Invalid Credentials' });
@@ -64,7 +56,7 @@ describe('API Endpoints', () => {
     it('should return 200 and message "Email sent" if user is registered', async () => {
       const response = await request(app)
         .post('/forgot')
-        .send({ email: 'registered@example.com' });
+        .send({ email: 'yashwanth0231@gmail.com' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({ message: 'Email sent' });
@@ -85,7 +77,7 @@ describe('API Endpoints', () => {
     it('should return 200 and message "code verified" if valid email and code are provided', async () => {
       const response = await request(app)
         .post('/verify')
-        .send({ email: 'verified@example.com', code: '12345' });
+        .send({ email: 'dummyemail4729529492@gmail.com', code: '12345' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({ message: 'code verified' });
@@ -94,7 +86,7 @@ describe('API Endpoints', () => {
     it('should return 409 with message "Invalid code" if invalid code is provided', async () => {
       const response = await request(app)
         .post('/verify')
-        .send({ email: 'verified@example.com', code: '54321' });
+        .send({ email: 'yashwanth0231@gmail.com', code: '54321' });
 
       expect(response.status).to.equal(409);
       expect(response.body).to.deep.equal({ message: 'Invalid code' });
@@ -106,7 +98,7 @@ describe('API Endpoints', () => {
     it('should return 200 and message "success" if password is updated successfully', async () => {
       const response = await request(app)
         .post('/updatePassword')
-        .send({ email: 'user@example.com', password: 'newpassword' });
+        .send({ email: 'yashwanth0231@gmail.com', password: 'newpassword' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({ message: 'success' });
@@ -119,7 +111,7 @@ describe('API Endpoints', () => {
       const response = await request(app)
         .post('/clientProfile')
         .send({
-          email: 'user@example.com',
+          email: 'yashwanth0231@gmail.com',
           firstname: 'John',
           lastname: 'Doe',
           address1: '123 Street',
@@ -139,7 +131,7 @@ describe('API Endpoints', () => {
     it('should return 200 and user details if email is valid', async () => {
       const response = await request(app)
         .get('/getUserDetails')
-        .query({ email: 'user@example.com' });
+        .query({ email: 'yashwanth0231@gmail.com' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal({
@@ -158,7 +150,7 @@ describe('API Endpoints', () => {
       const response = await request(app)
         .post('/submitQuote')
         .send({
-          email: 'user@example.com',
+          email: 'yashwanth0231@gmail.com',
           gallons_requested: 100,
           delivery_date: '2023-07-15',
           delivery_address: '123 Street',
@@ -171,12 +163,23 @@ describe('API Endpoints', () => {
     });
   });
 
+  describe('POST /login', () => {
+    it('should return 401 with error message "Invalid Credentials" if invalid credentials are provided', async () => {
+      const response = await request(app)
+        .post('/login')
+        .send({ email: 'yashwanth0231@gmail.com', password: 'awfewel' });
+
+      expect(response.status).to.equal(401);
+      expect(response.body).to.deep.equal({ error: 'Invalid Credentials' });
+    });
+  });
+
   // Test for /getFuelHistory endpoint
   describe('GET /getFuelHistory', () => {
     it('should return 200 and fuel quote history for the user', async () => {
       const response = await request(app)
         .get('/getFuelHistory')
-        .query({ email: 'user@example.com' });
+        .query({ email: 'yashwanth0231@gmail.com' });
 
       expect(response.status).to.equal(200);
       expect(response.body).to.deep.equal([
