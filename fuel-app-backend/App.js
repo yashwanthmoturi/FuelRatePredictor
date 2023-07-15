@@ -83,7 +83,7 @@ app.post('/register', (req, res) => {
                 if(error) {
                     res.status(401).send(error);
                 }
-                console.log(results);
+                // console.log(results);
                 res.send({message:"success"});
             })
         }
@@ -120,7 +120,7 @@ app.post('/forgot', async (req, res) => {
 
             }
             catch(e){
-                console.log("Hii",e,"bye");
+                // console.log("Hii",e,"bye");
                 res.send({message:"Error sending Email"});
             }
             res.send({message:"Email sent"});
@@ -150,7 +150,7 @@ app.post('/updatePassword', (req, res) => {
         if(error) {
             res.status(401).send(error);
         }
-        console.log(results);
+        // console.log(results);
         res.send({message:"success"});
     })
 })
@@ -209,7 +209,7 @@ app.get('/getFuelHistory', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Fuel app backen listening on port ${port}`)
 })
 
 
