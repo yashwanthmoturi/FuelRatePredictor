@@ -11,6 +11,24 @@ describe('API Endpoints', () => {
 
   // Test for /register endpoint
   describe('POST /register', () => {
+    it('should return 400 and message "Invalid Email address," if registration email format is invalid', async () => {
+      const response = await request(app)
+        .post('/register')
+        .send({ email: 'yash', password: 'password' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+    });
+
+    it('should return 400 and message "The password length must be inbetween 7 and 100" if registration password length is insufficient', async () => {
+      const response = await request(app)
+        .post('/register')
+        .send({ email: 'yashwanth0231@gmail.com', password: 'pass' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'The password length must be inbetween 7 and 100' });
+    });
+
     it('should return 200 and message "success" if registration is successful', async () => {
       const response = await request(app)
         .post('/register')
@@ -31,6 +49,23 @@ describe('API Endpoints', () => {
   });
 
   describe('POST /login', () => {
+    it('should return 400 and message "Invalid Email address," if login email format is invalid', async () => {
+      const response = await request(app)
+        .post('/login')
+        .send({ email: 'yash', password: 'password' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+    });
+
+    it('should return 400 and message "The password length must be inbetween 7 and 100" if login password length is insufficient', async () => {
+      const response = await request(app)
+        .post('/login')
+        .send({ email: 'yashwanth0231@gmail.com', password: 'pass' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'The password length must be inbetween 7 and 100' });
+    });
 
     it('should return 200 and status "ok" with message "ClientProfilePending" if client profile is pending', async () => {
       const response = await request(app)

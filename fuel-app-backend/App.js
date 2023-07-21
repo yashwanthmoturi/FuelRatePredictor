@@ -18,6 +18,16 @@ const transporter = nodemailer.createTransport({
 });
 
 
+const validate_feild = (value, minLength, maxLength) => {
+    return value && (value.toString().length >= minLength && value.toString().length <= maxLength);
+}
+
+const validateEmail = (email) => {
+    var regex = /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/;
+    return regex.test(email);
+}
+  
+  
 
 const Pool = require('pg').Pool
 
@@ -39,55 +49,73 @@ const generateRandomNumber = () => {
 app.post('/login', async (req, res) => {
     res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
     const {email, password} = req.body;
-   
-    
-
-    // let email = 'yashwanthmoturi2002@gmail.com'
-    // let password = 'moturi'
-    pool.query('Select count(*) from register_table where email=$1 and password=$2', [email, password], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        if(results?.rows[0].count === "1") {
-            pool.query('Select count(*) from user_table where email=$1', [email], (error, results) => {
-                if(error) {
-                    res.status(401).send(error);
-                }
-                else if(results?.rows[0].count === "1") {
-                    res.status(200).send({status:"ok"});
-                }
-                else {
-                    res.status(200).send({status:"ok",message:"ClientProfilePending"});
-                }
-            })
-        }
-        else {
-            res.status(401).send({error:"Invalid Credentials"})
-        }
-    })
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(!validate_feild(password, 7, 100)) {
+        invalidMessage += "The password length must be inbetween 7 and 100";
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select count(*) from register_table where email=$1 and password=$2', [email, password], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            if(results?.rows[0].count === "1") {
+                pool.query('Select count(*) from user_table where email=$1', [email], (error, results) => {
+                    if(error) {
+                        res.status(401).send(error);
+                    }
+                    else if(results?.rows[0].count === "1") {
+                        res.status(200).send({status:"ok"});
+                    }
+                    else {
+                        res.status(200).send({status:"ok",message:"ClientProfilePending"});
+                    }
+                })
+            }
+            else {
+                res.status(401).send({error:"Invalid Credentials"})
+            }
+        })
+    }
 })
 
 app.post('/register', (req, res) => {
     const {email, password} = req.body;
-    // let email = 'yashwanthmoturi2002@gmail.com'
-    // let password = 'moturi'
-    pool.query('Select count(*) from register_table where email=$1',[email], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        if(results?.rows[0].count === "1") {
-            res.status(409).send({"message":"duplicate user"});
-        }
-        else {
-            pool.query('Insert into register_table values($1,$2)', [email, password], (error, results) => {
-                if(error) {
-                    res.status(401).send(error);
-                }
-                // console.log(results);
-                res.send({message:"success"});
-            })
-        }
-    })
+
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(!validate_feild(password, 7, 100)) {
+        invalidMessage += "The password length must be inbetween 7 and 100";
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select count(*) from register_table where email=$1',[email], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            if(results?.rows[0].count === "1") {
+                res.status(409).send({"message":"duplicate user"});
+            }
+            else {
+                pool.query('Insert into register_table values($1,$2)', [email, password], (error, results) => {
+                    if(error) {
+                        res.status(401).send(error);
+                    }
+                    // console.log(results);
+                    res.send({message:"success"});
+                })
+            }
+        })
+    }
     
 })
 
