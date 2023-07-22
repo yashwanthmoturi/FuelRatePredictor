@@ -4,6 +4,8 @@ app.use(express.json());
 const nodemailer = require("nodemailer");
 var cors = require('cors')
 
+const bcrypt = require('bcrypt');
+
 app.use(cors())
 
 const port = 3001
@@ -25,6 +27,29 @@ const validate_feild = (value, minLength, maxLength) => {
 const validateEmail = (email) => {
     var regex = /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/;
     return regex.test(email);
+}
+
+// Function to hash (encrypt) the password
+async function encryptPassword(password) {
+  const saltRounds = 10; // Number of salt rounds (higher is more secure but slower)
+
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (error) {
+    throw new Error('Password encryption failed');
+  }
+}
+
+// Function to compare (decrypt) the password with the hashed password
+const comparePassword = async (password, hashedPassword) => {
+  try {
+    const isMatch = await bcrypt.compare(password, hashedPassword);
+    return isMatch;
+  } catch (error) {
+    throw new Error('Password decryption failed');
+  }
 }
   
   
@@ -60,31 +85,40 @@ app.post('/login', async (req, res) => {
         res.status(400).send({invalid_request: invalidMessage});
     }
     else {
-        pool.query('Select count(*) from register_table where email=$1 and password=$2', [email, password], (error, results) => {
+        pool.query('Select password from register_table where email=$1', [email], async (error, results) => {
+            // console.log(results?.rows[0]?.password);
             if(error) {
                 res.status(401).send(error);
             }
-            if(results?.rows[0].count === "1") {
-                pool.query('Select count(*) from user_table where email=$1', [email], (error, results) => {
-                    if(error) {
-                        res.status(401).send(error);
-                    }
-                    else if(results?.rows[0].count === "1") {
-                        res.status(200).send({status:"ok"});
+            else {
+                if(results?.rows[0]?.password) {
+                    let result = await comparePassword(password, results?.rows[0]?.password);
+                    if(result) {
+                        pool.query('Select count(*) from user_table where email=$1', [email], (error, results) => {
+                            if(error) {
+                                res.status(401).send(error);
+                            }
+                            else if(results?.rows[0]?.count === "1") {
+                                res.status(200).send({status:"ok"});
+                            }
+                            else {
+                                res.status(200).send({status:"ok",message:"ClientProfilePending"});
+                            }
+                        })
                     }
                     else {
-                        res.status(200).send({status:"ok",message:"ClientProfilePending"});
+                    res.status(401).send({error:"Invalid Credentials"})
                     }
-                })
-            }
-            else {
-                res.status(401).send({error:"Invalid Credentials"})
+                }
+                else {
+                    res.status(401).send({error:"Invalid Credentials"})
+                }
             }
         })
     }
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     const {email, password} = req.body;
 
     let invalidMessage = "";
@@ -98,6 +132,8 @@ app.post('/register', (req, res) => {
         res.status(400).send({invalid_request: invalidMessage});
     }
     else {
+        let encryptedPassword = await encryptPassword(password);
+
         pool.query('Select count(*) from register_table where email=$1',[email], (error, results) => {
             if(error) {
                 res.status(401).send(error);
@@ -106,7 +142,7 @@ app.post('/register', (req, res) => {
                 res.status(409).send({"message":"duplicate user"});
             }
             else {
-                pool.query('Insert into register_table values($1,$2)', [email, password], (error, results) => {
+                pool.query('Insert into register_table values($1,$2)', [email, encryptedPassword], (error, results) => {
                     if(error) {
                         res.status(401).send(error);
                     }
@@ -192,7 +228,7 @@ app.post('/verify', (req, res) => {
     }
 })
 
-app.post('/updatePassword', (req, res) => {
+app.post('/updatePassword', async (req, res) => {
     const {email, password} = req.body;
     let invalidMessage = "";
     if(!validateEmail(email)) {
@@ -205,7 +241,9 @@ app.post('/updatePassword', (req, res) => {
         res.status(400).send({invalid_request: invalidMessage});
     }
     else {
-        pool.query('Update register_table set password=$2 where email=$1', [email, password], (error, results) => {
+        let encryptedPassword = await encryptPassword(password);
+
+        pool.query('Update register_table set password=$2 where email=$1', [email, encryptedPassword], (error, results) => {
             if(error) {
                 res.status(401).send(error);
             }
@@ -320,9 +358,9 @@ app.get('/getFuelHistory', (req, res) => {
     }
 })
 
-app.listen(port, () => {
-  console.log(`Fuel app backen listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Fuel app backen listening on port ${port}`)
+// })
 
 
 module.exports = app;
