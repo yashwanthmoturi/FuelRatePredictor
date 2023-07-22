@@ -128,6 +128,15 @@ describe('API Endpoints', () => {
 
   // Test for /getUserDetails endpoint
   describe('GET /getUserDetails', () => {
+    it('should return 400 and message "Invalid Email address," if registration email format is invalid', async () => {
+      const response = await request(app)
+        .get('/getUserDetails')
+        .query({ email: 'yash' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+    });
+
     it('should return 200 and user details if email is valid', async () => {
       const response = await request(app)
         .get('/getUserDetails')
@@ -146,6 +155,15 @@ describe('API Endpoints', () => {
 
   // Test for /submitQuote endpoint
   describe('POST /submitQuote', () => {
+    it('should return 400 and message "Invalid Email address," if email format is invalid', async () => {
+      const response = await request(app)
+        .post('/submitQuote')
+        .send({ email: 'yash' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+    });
+
     it('should return 200 and message "Fuel Quote Submitted" if quote is submitted successfully', async () => {
       const response = await request(app)
         .post('/submitQuote')
@@ -176,6 +194,15 @@ describe('API Endpoints', () => {
 
   // Test for /getFuelHistory endpoint
   describe('GET /getFuelHistory', () => {
+    it('should return 400 and message "Invalid Email address," if email format is invalid', async () => {
+      const response = await request(app)
+        .get('/getFuelHistory')
+        .query({ email: 'yash' });
+
+      expect(response.status).to.equal(400);
+      expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+    });
+
     it('should return 200 and fuel quote history for the user', async () => {
       const response = await request(app)
         .get('/getFuelHistory')
