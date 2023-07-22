@@ -122,54 +122,74 @@ app.post('/register', (req, res) => {
 app.post('/forgot', async (req, res) => {
     const {email} = req.body;
 
-
-
-    pool.query('Select count(*) from register_table where email=$1',[email], async (error, results) => {
-        if(error) {
-            res.status(401).send({message:"Error in sending Email"});
-        }
-        if(results?.rows[0].count === "0") {
-            res.status(409).send({"message":"user have not registered"});
-        }
-        else {
-            // send email
-            try{
-                const randomNum = generateRandomNumber();
-
-                await transporter.sendMail({
-                    from: 'fuelratepredictor@outlook.com',
-                    to: email,
-                    subject: 'Verification Code',
-                    html: `<h1>Verification code is ${randomNum}</h1>`
-                });
-                
-                pool.query('Insert into verification_table values($1,$2) ON Conflict(email) do update set code=$3', [email, randomNum, randomNum]);
-
-
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select count(*) from register_table where email=$1',[email], async (error, results) => {
+            if(error) {
+                res.status(401).send({message:"Error in sending Email"});
             }
-            catch(e){
-                // console.log("Hii",e,"bye");
-                res.send({message:"Error sending Email"});
+            if(results?.rows[0].count === "0") {
+                res.status(409).send({"message":"user have not registered"});
             }
-            res.send({message:"Email sent"});
-        }
-    })
+            else {
+                // send email
+                try{
+                    const randomNum = generateRandomNumber();
+    
+                    await transporter.sendMail({
+                        from: 'fuelratepredictor@outlook.com',
+                        to: email,
+                        subject: 'Verification Code',
+                        html: `<h1>Verification code is ${randomNum}</h1>`
+                    });
+                    
+                    pool.query('Insert into verification_table values($1,$2) ON Conflict(email) do update set code=$3', [email, randomNum, randomNum]);
+    
+    
+                }
+                catch(e){
+                    // console.log("Hii",e,"bye");
+                    res.send({message:"Error sending Email"});
+                }
+                res.send({message:"Email sent"});
+            }
+        })
+    }
 
 })
 
 app.post('/verify', (req, res) => {
     const {email, code} = req.body;
-    pool.query('Select count(*) from verification_table where email=$1 and code=$2',[email, code], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        else if(results?.rows[0]?.count === "0") {
-            res.status(409).send({"message":"Invalid code"});
-        }
-        else {
-            res.send({message:"code verified"});
-        }
-    })
+    
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(!validate_feild(code, 5, 5)) {
+        invalidMessage += "The verification code length should be 5";
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select count(*) from verification_table where email=$1 and code=$2',[email, code], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            else if(results?.rows[0]?.count === "0") {
+                res.status(409).send({"message":"Invalid code"});
+            }
+            else {
+                res.send({message:"code verified"});
+            }
+        })
+    }
 })
 
 app.post('/updatePassword', (req, res) => {

@@ -86,47 +86,74 @@ describe('API Endpoints', () => {
     });
   });
 
-  // Test for /forgot endpoint
-  describe('POST /forgot', () => {
-    it('should return 200 and message "Email sent" if user is registered', async () => {
-      const response = await request(app)
-        .post('/forgot')
-        .send({ email: 'yashwanth0231@gmail.com' });
+// Test for /forgot endpoint
+describe('POST /forgot', () => {
+  it('should return 400 and message "Invalid Email address," if email format is invalid', async () => {
+    const response = await request(app)
+      .post('/forgot')
+      .send({ email: 'yash' });
 
-      expect(response.status).to.equal(200);
-      expect(response.body).to.deep.equal({ message: 'Email sent' });
-    });
-
-    it('should return 409 with message "user have not registered" if user is not registered', async () => {
-      const response = await request(app)
-        .post('/forgot')
-        .send({ email: 'unregistered@example.com' });
-
-      expect(response.status).to.equal(409);
-      expect(response.body).to.deep.equal({ message: 'user have not registered' });
-    });
+    expect(response.status).to.equal(400);
+    expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
   });
 
-  // Test for /verify endpoint
-  describe('POST /verify', () => {
-    it('should return 200 and message "code verified" if valid email and code are provided', async () => {
-      const response = await request(app)
-        .post('/verify')
-        .send({ email: 'dummyemail4729529492@gmail.com', code: '12345' });
+  it('should return 200 and message "Email sent" if user is registered', async () => {
+    const response = await request(app)
+      .post('/forgot')
+      .send({ email: 'yashwanth0231@gmail.com' });
 
-      expect(response.status).to.equal(200);
-      expect(response.body).to.deep.equal({ message: 'code verified' });
-    });
-
-    it('should return 409 with message "Invalid code" if invalid code is provided', async () => {
-      const response = await request(app)
-        .post('/verify')
-        .send({ email: 'yashwanth0231@gmail.com', code: '54321' });
-
-      expect(response.status).to.equal(409);
-      expect(response.body).to.deep.equal({ message: 'Invalid code' });
-    });
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal({ message: 'Email sent' });
   });
+
+  it('should return 409 with message "user have not registered" if user is not registered', async () => {
+    const response = await request(app)
+      .post('/forgot')
+      .send({ email: 'unregistered@example.com' });
+
+    expect(response.status).to.equal(409);
+    expect(response.body).to.deep.equal({ message: 'user have not registered' });
+  });
+});
+
+// Test for /verify endpoint
+describe('POST /verify', () => {
+  it('should return 400 and message "Invalid Email address," if verification email format is invalid', async () => {
+    const response = await request(app)
+      .post('/verify')
+      .send({ email: 'yash', code: '11323' });
+
+    expect(response.status).to.equal(400);
+    expect(response.body).to.deep.equal({ invalid_request: 'Invalid Email address,' });
+  });
+
+  it('should return 400 and message "The verification code length should be 5" if verification code length is invalid', async () => {
+    const response = await request(app)
+      .post('/verify')
+      .send({ email: 'yashwanth0231@gmail.com', code: '113' });
+
+    expect(response.status).to.equal(400);
+    expect(response.body).to.deep.equal({ invalid_request: 'The verification code length should be 5' });
+  });
+
+  it('should return 200 and message "code verified" if valid email and code are provided', async () => {
+    const response = await request(app)
+      .post('/verify')
+      .send({ email: 'dummyemail4729529492@gmail.com', code: '12345' });
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal({ message: 'code verified' });
+  });
+
+  it('should return 409 with message "Invalid code" if invalid code is provided', async () => {
+    const response = await request(app)
+      .post('/verify')
+      .send({ email: 'yashwanth0231@gmail.com', code: '54321' });
+
+    expect(response.status).to.equal(409);
+    expect(response.body).to.deep.equal({ message: 'Invalid code' });
+  });
+});
 
   // Test for /updatePassword endpoint
   describe('POST /updatePassword', () => {
