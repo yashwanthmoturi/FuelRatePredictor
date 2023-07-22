@@ -44,7 +44,7 @@ const ClientProfile = () => {
         <div className='profile-container'>
             <div className='profile'>
                 <h2 className='c-h2'>Complete your profile</h2>
-                <form className='form'>
+                <form className='form' onSubmit={handleSubmit}>
                     <div className='username'>
                         <input type='text' value={firstname} onChange={e=>setFirstname(e.target.value)} placeholder='FirstName' minLength="1" maxLength="50" required/>
                         <input type='text' value={lastname} onChange={e=>setLastname(e.target.value)} placeholder='LastName' minLength="1" maxLength="50" required/>
@@ -58,7 +58,7 @@ const ClientProfile = () => {
                         <input type='text' value={state} onChange={e=>setState(e.target.value)} placeholder='State' minLength="2" maxLength="2" required/>
                         <input type='number' value={zipcode} onChange={e=>setZipcode(e.target.value)} placeholder='Zipcode' minLength="5" maxLength="9" required/>
                     </div>
-                    <input onClick={handleSubmit} type='submit' id="submit"/>
+                    <input type='submit' id="submit"/>
                 </form>
             </div>
         </div>

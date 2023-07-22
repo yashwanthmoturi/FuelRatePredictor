@@ -194,66 +194,91 @@ app.post('/verify', (req, res) => {
 
 app.post('/updatePassword', (req, res) => {
     const {email, password} = req.body;
-    pool.query('Update register_table set password=$2 where email=$1', [email, password], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        // console.log(results);
-        res.send({message:"success"});
-    })
+        pool.query('Update register_table set password=$2 where email=$1', [email, password], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            // console.log(results);
+            res.send({message:"success"});
+        })   
 })
 
 app.post('/clientProfile', (req, res) => {
     const {email, firstname, lastname, address1, address2, city, state, zipcode} = req.body;
-    pool.query('Insert into user_table values($1,$2,$3,$4,$5,$6,$7,$8)', [firstname, lastname, address1, address2, city, state, zipcode, email], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        // console.log(results);
-        else {
-            res.send({message:"Client Profile Completed"});
-
-        }
-    })
+        pool.query('Insert into user_table values($1,$2,$3,$4,$5,$6,$7,$8)', [firstname, lastname, address1, address2, city, state, zipcode, email], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            // console.log(results);
+            else {
+                res.send({message:"Client Profile Completed"});
+    
+            }
+        })
 })
 
 app.get('/getUserDetails', (req, res) => {
     const {email} = req.query;
-    pool.query('Select address1, address2, state, city, zipcode from user_table where email=$1',[email], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        else {
-            res.send(results?.rows[0]);
-        }
-    })
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select address1, address2, state, city, zipcode from user_table where email=$1',[email], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            else {
+                res.send(results?.rows[0]);
+            }
+        })
+    }
 })
 
 app.post('/submitQuote', (req, res) => {
     const {email, gallons_requested, delivery_date, delivery_address, suggested_price_per_gallon, total_amount_due} = req.body;
-    pool.query('Insert into fuel_quote_history values($1,$2,$3,$4,$5,$6)', [gallons_requested, delivery_address, delivery_date, suggested_price_per_gallon, total_amount_due, email], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        // console.log(results);
-        else {
-            res.send({message:"Fuel Quote Submitted"});
-        }
-    })
-
-    
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Insert into fuel_quote_history values($1,$2,$3,$4,$5,$6)', [gallons_requested, delivery_address, delivery_date, suggested_price_per_gallon, total_amount_due, email], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            // console.log(results);
+            else {
+                res.send({message:"Fuel Quote Submitted"});
+            }
+        })
+    }
 })
 
 app.get('/getFuelHistory', (req, res) => {
     const {email} = req.query;
-    pool.query('Select gallons_requested, delivery_date, delivery_address, suggested_price_per_gallon, total_amount_due from fuel_quote_history where email=$1',[email], (error, results) => {
-        if(error) {
-            res.status(401).send(error);
-        }
-        else {
-            res.send(results?.rows);
-        }
-    })
+    let invalidMessage = "";
+    if(!validateEmail(email)) {
+        invalidMessage += "Invalid Email address,"
+    }
+    if(invalidMessage.length) {
+        res.status(400).send({invalid_request: invalidMessage});
+    }
+    else {
+        pool.query('Select gallons_requested, delivery_date, delivery_address, suggested_price_per_gallon, total_amount_due from fuel_quote_history where email=$1',[email], (error, results) => {
+            if(error) {
+                res.status(401).send(error);
+            }
+            else {
+                res.send(results?.rows);
+            }
+        })
+    }
 })
 
 app.listen(port, () => {

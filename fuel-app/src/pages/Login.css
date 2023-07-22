@@ -101,6 +101,13 @@ a {
 
 .l-text {
 	color: rgb(0, 157, 209);
+	font-size: 14px;
+	font-weight: 100;
+	margin: 10px;
+}
+
+.l-text:hover{
+	cursor: pointer;
 }
 
 
