@@ -28,6 +28,8 @@ const Login = () => {
   const [verificationCode, setVerificationCode] = useState();
   const [newPassword, setNewPassword] = useState('');
   const [newVerifyPassword, setNewVerifyPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
+  const [forgotEmailError, setForgotEamilError] = useState(false);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -83,6 +85,7 @@ const Login = () => {
             console.log(response.data);
           
         }).catch(error => {
+          setLoginError(true);
           console.log(error);
         });
 
@@ -106,19 +109,26 @@ const Login = () => {
   console.log("hello");
 }
 
-  const handleForgot = () => {
+  const handleForgot = (e) => {
+    e.preventDefault();
     axios.post(`http://localhost:3001/forgot`, {
       email: forgotEmail
     }, {mode:'cors'}).then((response)=>{
-        setIsCodePage(true);
         console.log(response.data);
-      
+        if(response.data?.message === "Email sent") {
+          setIsCodePage(true);
+        }
+        else {
+        setForgotEamilError(true);
+        }
     }).catch(error => {
+      setForgotEamilError(true);
       console.log(error);
     });
   }
 
-  const handleVerifyCode = () => {
+  const handleVerifyCode = (e) => {
+    e.preventDefault();
     axios.post(`http://localhost:3001/verify`, {
       code: verificationCode,
       email: forgotEmail
@@ -131,7 +141,8 @@ const Login = () => {
     });
   }
 
-  const handleNewPassword = () => {
+  const handleNewPassword = (e) => {
+    e.preventDefault();
     if(newPassword === newVerifyPassword) {
       axios.post(`http://localhost:3001/updatePassword`, {
         password: newPassword,
@@ -154,11 +165,12 @@ const Login = () => {
                     <div className="signup-container">
                       <div className="container">
                         <div className="login">
-                          <form action="#">
+                          <form onSubmit={handleRegister}>
                             <h1 className='l-h1'>Register</h1>
-                            <input className="l-input" onChange={handleREmailChange} type="email" value={remail} minLength="5" maxLength="50" placeholder="Email" />
-                            <input className="l-input" onChange={handleRPasswordChange} type="password" value={rpassword} minLength="5" maxLength="20" placeholder="Password" />
-                            <button className="l-button" onClick={handleRegister}>Signup</button>
+                            <input className="l-input" onChange={handleREmailChange} type="email" value={remail} minLength="5" maxLength="50" placeholder="Email" required/>
+                            <input className="l-input" onChange={handleRPasswordChange} type="password" value={rpassword} minLength="7" maxLength="20" placeholder="Password" required/>
+                            <br></br>
+                            <button type="submit" className="l-button">Signup</button>
                           </form>
                         </div>
                         <div className="signup">
@@ -173,12 +185,13 @@ const Login = () => {
                     <div className="login-container">
                       <div className="container">
                         <div className="login">
-                          <form action="#">
+                          <form onSubmit={handleLogin}>
                             <h1 className='l-h1'>Login</h1>
                             <input className="l-input" onChange={handleEmailChange} type="email" value={email} minLength="5" maxLength="50" placeholder="Email" required/>
-                            <input className="l-input" onChange={handlePasswordChange} type="password" value={password} minLength="5" maxLength="20" placeholder="Password" required/>
-                            <a className="l-text" onClick={()=>{setIsForget(true)}} href="/#">Forgot your password?</a>
-                            <button className="l-button" onClick={handleLogin}>Login</button>
+                            <input className="l-input" onChange={handlePasswordChange} type="password" value={password} minLength="7" maxLength="20" placeholder="Password" required/>
+                            {loginError && <p className='l-error-text'>Invalid Email or Password!!</p>}
+                            <p className="l-text" onClick={()=>{setIsForget(true)}}>Forgot your password?</p>
+                            <button type="submit" className="l-button" >Login</button>
                           </form>
                         </div>
                         <div className="signup">
@@ -192,13 +205,14 @@ const Login = () => {
                     (!isCodePage)?(<div className="login-container">
                       <div className="container">
                         <div className="login">
-                          <div className='form'>
+                          <form onSubmit={handleForgot}>
                             <h1 className='l-h1'>Forgot Password</h1>
-                            <input className="l-input" value={forgotEmail} onChange={(e)=>{setForgotEmail(e.target.value)}} type="email" minLength="5" maxLength="50" placeholder="Email" />
-                            <br></br>
-                            <button className="l-button" onClick={handleForgot}>Get Code</button>
+                            <input className="l-input" value={forgotEmail} onChange={(e)=>{setForgotEmail(e.target.value)}} type="email" minLength="5" maxLength="50" placeholder="Email" required/>
+                            {/* <br></br> */}
+                            {forgotEmailError ? <p className='l-error-text'>Incorrect Email!</p> : <br></br>}
+                            <button type="submit" className="l-button">Get Code</button>
                             <a className="l-text" onClick={()=>{setIsForget(false);refresh();}} href="/#">Back to Login</a>
-                          </div>
+                          </form>
                         </div>
                         <div className="signup">
                               <h1 className='l-h1'>NEW USER!</h1>
@@ -211,13 +225,13 @@ const Login = () => {
                     (!isPasswordPage)?(<div className="login-container">
                     <div className="container">
                       <div className="login">
-                        <div className='form'>
+                        <form onSubmit={handleVerifyCode}>
                           <h1 className='l-h1'>Verify Code</h1>
-                          <input className="l-input" type="number" value={verificationCode} onChange={e=>setVerificationCode(e.target.value)} minLength="5" maxLength="50" placeholder="Verification Code" />
+                          <input className="l-input" type="number" value={verificationCode} onChange={e=>setVerificationCode(e.target.value)} min={0} max={99999} placeholder="Verification Code" required/>
                           <br></br>
-                          <button className="l-button" onClick={handleVerifyCode}>Verify</button>
+                          <button type="submit" className="l-button">Verify</button>
                           <a className="l-text" onClick={()=>{setIsForget(false);refresh();}} href="/#">Back to Login</a>
-                        </div>
+                        </form>
                       </div>
                       <div className="signup">
                             <h1 className='l-h1'>NEW USER!</h1>
@@ -230,14 +244,14 @@ const Login = () => {
                   (<div className="login-container">
                       <div className="container">
                         <div className="login">
-                          <div className='form'>
+                          <form onSubmit={handleNewPassword}>
                             <h2 className='l-h1'>Create New Password</h2>
-                            <input className="l-input" type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} minLength="5" maxLength="50" placeholder="New Password" />
-                            <input className="l-input" type="password" value={newVerifyPassword} onChange={e=>setNewVerifyPassword(e.target.value)} minLength="5" maxLength="50" placeholder="Re-enter New Password" />
+                            <input className="l-input" type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} minLength="7" maxLength="50" placeholder="New Password" required/>
+                            <input className="l-input" type="password" value={newVerifyPassword} onChange={e=>setNewVerifyPassword(e.target.value)} minLength="7" maxLength="50" placeholder="Re-enter New Password" required/>
                             <br></br>
-                            <button className="l-button" onClick={handleNewPassword}>Change Password</button>
+                            <button className="l-button" type='submit'>Change Password</button>
                             <a className="l-text" onClick={()=>{setIsForget(false);refresh();}} href="/#">Back to Login</a>
-                          </div>
+                          </form>
                         </div>
                         <div className="signup">
                               <h1 className='l-h1'>NEW USER!</h1>
