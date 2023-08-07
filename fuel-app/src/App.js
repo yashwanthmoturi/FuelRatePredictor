@@ -7,7 +7,8 @@ import FuelRateQuoter from './pages/FuelRateQuoter';
 import Display from './pages/Display';
 import Home from './pages/Home';
 import ClientProfile from './pages/ClientProfile';
- 
+import { Navigate } from 'react-router-dom'; 
+
 function App() {
     return (
             <Routes>
@@ -16,6 +17,7 @@ function App() {
                 <Route path='/client-profile' element={<ClientProfile />} />
                 <Route path='/fuel-rate-quoter' element={<FuelRateQuoter />} />
                 <Route path='/display' element={<Display />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
     );
 }
