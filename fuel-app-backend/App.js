@@ -168,9 +168,10 @@ app.post('/forgot', async (req, res) => {
     else {
         pool.query('Select count(*) from register_table where email=$1',[email], async (error, results) => {
             if(error) {
+                // console.log(error);
                 res.status(401).send({message:"Error in sending Email"});
             }
-            if(results?.rows[0].count === "0") {
+            else if(results?.rows[0].count === "0") {
                 res.status(409).send({"message":"user have not registered"});
             }
             else {
@@ -187,13 +188,12 @@ app.post('/forgot', async (req, res) => {
                     
                     pool.query('Insert into verification_table values($1,$2) ON Conflict(email) do update set code=$3', [email, randomNum, randomNum]);
     
-    
+                    res.send({message:"Email sent"});
                 }
                 catch(e){
                     // console.log("Hii",e,"bye");
                     res.send({message:"Error sending Email"});
                 }
-                res.send({message:"Email sent"});
             }
         })
     }
