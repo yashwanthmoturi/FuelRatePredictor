@@ -3,6 +3,9 @@ import './Header.css';
 
 const Header = (param) => {
     const isLoggedIn = param.isLoggedIn;
+    const handleLogOut = () => {
+        sessionStorage.clear();
+    }
     return (
     <div className="nav-container">
         
@@ -22,7 +25,7 @@ const Header = (param) => {
                 </li>
                 <li  className="hover1"><a href='mailto:fuelratepredictor@gmail.com'>contact</a></li>
                 {isLoggedIn&& 
-                <li  className="hover1"><a href='/'>Log out</a></li>}
+                <li  className="hover1"><a href='/' onClick={handleLogOut}>Log out</a></li>}
             </ul>
         </div>
       

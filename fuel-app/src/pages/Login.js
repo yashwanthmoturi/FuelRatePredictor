@@ -28,6 +28,8 @@ const Login = () => {
   const [verificationCode, setVerificationCode] = useState();
   const [newPassword, setNewPassword] = useState('');
   const [newVerifyPassword, setNewVerifyPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
+  const [forgotEmailError, setForgotEamilError] = useState(false);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -83,6 +85,7 @@ const Login = () => {
             console.log(response.data);
           
         }).catch(error => {
+          setLoginError(true);
           console.log(error);
         });
 
@@ -111,10 +114,15 @@ const Login = () => {
     axios.post(`http://localhost:3001/forgot`, {
       email: forgotEmail
     }, {mode:'cors'}).then((response)=>{
-        setIsCodePage(true);
         console.log(response.data);
-      
+        if(response.data?.message === "Email sent") {
+          setIsCodePage(true);
+        }
+        else {
+        setForgotEamilError(true);
+        }
     }).catch(error => {
+      setForgotEamilError(true);
       console.log(error);
     });
   }
@@ -181,6 +189,7 @@ const Login = () => {
                             <h1 className='l-h1'>Login</h1>
                             <input className="l-input" onChange={handleEmailChange} type="email" value={email} minLength="5" maxLength="50" placeholder="Email" required/>
                             <input className="l-input" onChange={handlePasswordChange} type="password" value={password} minLength="7" maxLength="20" placeholder="Password" required/>
+                            {loginError && <p className='l-error-text'>Invalid Email or Password!!</p>}
                             <p className="l-text" onClick={()=>{setIsForget(true)}}>Forgot your password?</p>
                             <button type="submit" className="l-button" >Login</button>
                           </form>
@@ -199,7 +208,8 @@ const Login = () => {
                           <form onSubmit={handleForgot}>
                             <h1 className='l-h1'>Forgot Password</h1>
                             <input className="l-input" value={forgotEmail} onChange={(e)=>{setForgotEmail(e.target.value)}} type="email" minLength="5" maxLength="50" placeholder="Email" required/>
-                            <br></br>
+                            {/* <br></br> */}
+                            {forgotEmailError ? <p className='l-error-text'>Incorrect Email!</p> : <br></br>}
                             <button type="submit" className="l-button">Get Code</button>
                             <a className="l-text" onClick={()=>{setIsForget(false);refresh();}} href="/#">Back to Login</a>
                           </form>

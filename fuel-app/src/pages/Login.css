@@ -106,6 +106,13 @@ a {
 	margin: 10px;
 }
 
+.l-error-text {
+	color: rgb(209, 0, 0);
+	font-size: 14px;
+	font-weight: bold;
+	margin: 10px;
+}
+
 .l-text:hover{
 	cursor: pointer;
 }
