@@ -87,6 +87,15 @@
   border-radius: 7px;
 }
 
+.location select{
+    width: 31%;
+    margin: 2px;
+    background-color: white;
+	border: none;
+	padding: 12px 15px;
+  border-radius: 7px;
+}
+
 #submit{
     cursor: pointer;
     width: 50%;
