@@ -13,7 +13,14 @@ const FuelRateQuoter = () => {
         axios.get(`http://localhost:3001/getUserDetails?email=${sessionStorage.getItem("email")}`, {mode:'cors'}).then((response)=>{
           console.log(response.data);
           const {address1, address2, state, city, zipcode} = response.data;
-          setAddress(`${address1}, ${address2&&address2}, ${city}, ${state}, ${zipcode}`)
+          setAddress(`${address1}, ${address2&&address2}, ${city}, ${state}, ${zipcode}`);
+          setState(state);
+        }).catch(error => {
+          console.log(error);
+        });
+        axios.get(`http://localhost:3001/getFuelHistory?email=${sessionStorage.getItem("email")}`, {mode:'cors'}).then((response)=>{
+          console.log(response.data);
+          setFuelHistoryExist(response.data?.length);
         }).catch(error => {
           console.log(error);
         });
@@ -26,11 +33,19 @@ const FuelRateQuoter = () => {
     const [totalAmount, setTotalAmount] = useState("0.00");
     const [submitQuote, setSubmitQuote] = useState(false);
     const [address, setAddress] = useState('');
+    const [fuelHistoryExist, setFuelHistoryExist] = useState(false);
+    const [state, setState] = useState('');
+
+    const calculateFuelPrice = (gallons) => {
+        const margin = (((state === 'TX' ? 0.02 : 0.04) - (fuelHistoryExist ? 0.01 : 0.00) + (gallons > 1000 ? 0.02 : 0.03) + (0.10)) * 1.50 );
+        setSuggestedPrice(1.50 + margin);
+        console.log(margin);
+        setTotalAmount((1.50 + margin)*gallons);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSuggestedPrice(3.19);
-        setTotalAmount(3.19*gallons);
+        calculateFuelPrice(gallons);
         setSubmitQuote(true);
         // navigate('/home')
         // Here you can perform your login logic, such as sending the email and password to a server
@@ -57,7 +72,7 @@ const FuelRateQuoter = () => {
             <div id="page-center">
             <center><h2 className='f-h2'>Fuel Quote Estimator</h2></center>
             <div className="form-container">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
 
                         Delivery Address :
@@ -69,7 +84,7 @@ const FuelRateQuoter = () => {
 
                         <div>
                             Gallons Requested: &nbsp;
-                            <input className="f-input" type="numeric" step="any" minLength="1" maxLength="10" required id="gallons_inp_fld" value={gallons} onChange={handleGallonsChange} />
+                            <input className="f-input" type="number" step="any" minLength="1" maxLength="10" required id="gallons_inp_fld" value={gallons} onChange={handleGallonsChange} />
                         </div>
                         <div className='delivery-date'>
                             Delivery Date: &nbsp;
@@ -88,10 +103,10 @@ const FuelRateQuoter = () => {
                         <input className="f-input" type="number" value={totalAmount} disabled />
                     </div>
                     <br />
-                    <button onClick={handleSubmit} className="f-button" type="submit">Get Quote</button>
+                    <button className="f-button" type="submit">Get Quote</button>
                     <br></br>
                     <br></br>
-                    {submitQuote&& <button onClick={handleSubmitQuote} className="f-button" type="submit">Submit Quote</button>}
+                    {submitQuote&& <button onClick={handleSubmitQuote} className="f-button">Submit Quote</button>}
                 </form>
             </div>
             </div>
